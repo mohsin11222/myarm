@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+    "contentVersion": "1.0.0.1",
     "parameters": {
         "virtualNetworks_myarm_vnet_name": {
             "defaultValue": "myarm-vnet",
@@ -46,6 +46,8 @@
             "apiVersion": "2020-05-01",
             "name": "[parameters('networkSecurityGroups_mywebappbackend_nsg_name')]",
             "location": "[resourceGroup().location]",
+            "tags":{"myfirsttag": "[resourcegroup().location]",
+            },
             "properties": {
                 "securityRules": [
                     {
@@ -91,6 +93,21 @@
                             "sourceAddressPrefixes": [],
                             "destinationAddressPrefixes": []
                         }
+                         {
+                        "name": "https",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 310,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
                     }
                 ]
             }
